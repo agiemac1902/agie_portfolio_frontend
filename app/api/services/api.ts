@@ -1,8 +1,9 @@
 // services/api.ts
+import { Agent } from 'https'
 
 // Use environment variables if available, otherwise fallback to the EC2 IP
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://13.61.212.73';
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://13.61.212.73.nip.io/';
 
 // Helper function to determine the full URL for API requests
 const getApiUrl = (endpoint: string) => {
