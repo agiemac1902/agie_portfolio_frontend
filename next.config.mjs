@@ -13,6 +13,9 @@ const nextConfig = {
       },
     ],
   },
+  // This rewrites configuration redirects all API requests to your backend server
+  // When a request is made to /api/something, it gets rewritten to:
+  // http://13.61.212.73/api/something (or whatever is in NEXT_PUBLIC_BACKEND_URL)
   async rewrites() {
     return [
       {
