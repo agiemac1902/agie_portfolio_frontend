@@ -7,6 +7,7 @@ import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Contact from "@/components/contact"
 import { motion } from "framer-motion"
+import { fetchPersonalInfo, fetchSkills, fetchProjects, fetchExperiences, fetchEducation } from "@/app/api/services/api"
 
 // Define interfaces for the data types
 interface PersonalInfo {
@@ -116,23 +117,9 @@ export default function Home() {
 
         // Fetch personal info
         try {
-          const personalInfoResponse = await fetch("http://localhost:8000/api/personal-info/")
-          console.log("Personal info response status:", personalInfoResponse.status)
-
-          if (personalInfoResponse.ok) {
-            const data = await personalInfoResponse.json()
-            console.log("Personal info data:", data)
-
-            if (data && data.length > 0) {
-              // Fix image URL if needed
-              const personalData = data[0]
-              if (personalData.image && !personalData.image.startsWith("http")) {
-                personalData.image = `http://localhost:8000${personalData.image}`
-              }
-              setPersonalInfo(personalData)
-            }
-          } else {
-            console.error("Failed to fetch personal info:", personalInfoResponse.statusText)
+          const data = await fetchPersonalInfo()
+          if (data) {
+            setPersonalInfo(data)
           }
         } catch (error) {
           console.error("Error fetching personal info:", error)
@@ -140,18 +127,9 @@ export default function Home() {
 
         // Fetch skills
         try {
-          const skillsResponse = await fetch("http://localhost:8000/api/skills/")
-          console.log("Skills response status:", skillsResponse.status)
-
-          if (skillsResponse.ok) {
-            const data = await skillsResponse.json()
-            console.log("Skills data:", data)
-
-            if (data && data.length > 0) {
-              setSkills(data)
-            }
-          } else {
-            console.error("Failed to fetch skills:", skillsResponse.statusText)
+          const data = await fetchSkills()
+          if (data && data.length > 0) {
+            setSkills(data)
           }
         } catch (error) {
           console.error("Error fetching skills:", error)
@@ -159,25 +137,9 @@ export default function Home() {
 
         // Fetch projects
         try {
-          const projectsResponse = await fetch("http://localhost:8000/api/projects/")
-          console.log("Projects response status:", projectsResponse.status)
-
-          if (projectsResponse.ok) {
-            const data = await projectsResponse.json()
-            console.log("Projects data:", data)
-
-            if (data && data.length > 0) {
-              // Fix image URLs if needed
-              const projectsData = data.map((project: Project) => {
-                if (project.image && !project.image.startsWith("http")) {
-                  project.image = `http://localhost:8000${project.image}`
-                }
-                return project
-              })
-              setProjects(projectsData)
-            }
-          } else {
-            console.error("Failed to fetch projects:", projectsResponse.statusText)
+          const data = await fetchProjects()
+          if (data && data.length > 0) {
+            setProjects(data)
           }
         } catch (error) {
           console.error("Error fetching projects:", error)
@@ -185,18 +147,9 @@ export default function Home() {
 
         // Fetch experiences
         try {
-          const experiencesResponse = await fetch("http://localhost:8000/api/experiences/")
-          console.log("Experiences response status:", experiencesResponse.status)
-
-          if (experiencesResponse.ok) {
-            const data = await experiencesResponse.json()
-            console.log("Experiences data:", data)
-
-            if (data && data.length > 0) {
-              setExperiences(data)
-            }
-          } else {
-            console.error("Failed to fetch experiences:", experiencesResponse.statusText)
+          const data = await fetchExperiences()
+          if (data && data.length > 0) {
+            setExperiences(data)
           }
         } catch (error) {
           console.error("Error fetching experiences:", error)
@@ -204,18 +157,9 @@ export default function Home() {
 
         // Fetch education
         try {
-          const educationResponse = await fetch("http://localhost:8000/api/education/")
-          console.log("Education response status:", educationResponse.status)
-
-          if (educationResponse.ok) {
-            const data = await educationResponse.json()
-            console.log("Education data:", data)
-
-            if (data && data.length > 0) {
-              setEducation(data)
-            }
-          } else {
-            console.error("Failed to fetch education:", educationResponse.statusText)
+          const data = await fetchEducation()
+          if (data && data.length > 0) {
+            setEducation(data)
           }
         } catch (error) {
           console.error("Error fetching education:", error)

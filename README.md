@@ -19,13 +19,30 @@ A modern portfolio website built with Next.js, TypeScript, and Tailwind CSS.
    # or
    pnpm install
    ```
-3. Run the development server:
+3. Set up environment variables:
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env.local
+   
+   # Edit .env.local with your actual values
+   ```
+4. Run the development server:
    ```bash
    npm run dev
    # or
    pnpm dev
    ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Environment Variables
+
+The following environment variables are required:
+
+- `NEXT_PUBLIC_API_URL`: The base URL for API requests (default: `/api`)
+- `NEXT_PUBLIC_BACKEND_URL`: The URL of your backend server
+- `BACKEND_URL`: The URL of your backend server (used server-side)
+
+See `.env.example` for more details.
 
 ## Project Structure
 
