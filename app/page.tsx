@@ -7,7 +7,7 @@ import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Contact from "@/components/contact"
 import { motion } from "framer-motion"
-// import { fetchPersonalInfo, fetchSkills, fetchProjects, fetchExperiences, fetchEducation } from "@/app/api/services/api"
+import { fetchPersonalInfo, fetchSkills, fetchProjects, fetchExperiences, fetchEducation } from "@/app/api/services/api"
 
 // Define interfaces for the data types
 interface PersonalInfo {
@@ -110,7 +110,7 @@ export default function Home() {
   const [education, setEducation] = useState<Education[]>([])
 
   // Fetch data from API with proper error handling
-  /* useEffect(() => {
+  useEffect(() => {
     async function fetchData() {
       try {
         console.log("Fetching data from API...")
@@ -170,8 +170,8 @@ export default function Home() {
     }
 
     fetchData()
-  }, []) */
-  useEffect(() => {
+  }, []) 
+  /*useEffect(() => {
     async function fetchData() {
       try {
         console.log("Fetching data from API...")
@@ -288,7 +288,7 @@ export default function Home() {
     }
 
     fetchData()
-  }, [])
+  }, []) */
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>

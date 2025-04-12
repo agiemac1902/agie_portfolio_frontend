@@ -40,16 +40,37 @@ const fetchOptions = {
 // Add console logs to debug API URLs
 export async function fetchPersonalInfo() {
   try {
-    const url = getApiUrl('/personal-info/');
+    // Try using the Next.js API route first
+    const url = '/api/personal-info/';
     console.log('Fetching personal info from:', url);
     
     const response = await fetch(url, fetchOptions);
     console.log('Personal info response status:', response.status);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Personal info error response:', errorText);
-      throw new Error(`API error: ${response.status} - ${errorText}`);
+      // If the Next.js API route fails, try direct backend URL
+      console.log('Next.js API route failed, trying direct backend URL');
+      const directUrl = `${BACKEND_URL}/api/personal-info/`;
+      console.log('Fetching personal info from direct URL:', directUrl);
+      
+      const directResponse = await fetch(directUrl, fetchOptions);
+      console.log('Direct personal info response status:', directResponse.status);
+      
+      if (!directResponse.ok) {
+        const errorText = await directResponse.text();
+        console.error('Direct personal info error response:', errorText);
+        throw new Error(`API error: ${directResponse.status} - ${errorText}`);
+      }
+      
+      const data = await directResponse.json();
+      console.log('Direct personal info data received:', data);
+      
+      if (data && data.length > 0) {
+        // Fix image URL
+        data[0].image = fixImageUrl(data[0].image);
+        return data[0];
+      }
+      return null;
     }
     
     const data = await response.json();
@@ -69,16 +90,32 @@ export async function fetchPersonalInfo() {
 
 export async function fetchSkills() {
   try {
-    const url = getApiUrl('/skills/');
+    // Try using the Next.js API route first
+    const url = '/api/skills/';
     console.log('Fetching skills from:', url);
     
     const response = await fetch(url, fetchOptions);
     console.log('Skills response status:', response.status);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Skills error response:', errorText);
-      throw new Error(`API error: ${response.status} - ${errorText}`);
+      // If the Next.js API route fails, try direct backend URL
+      console.log('Next.js API route failed, trying direct backend URL');
+      const directUrl = `${BACKEND_URL}/api/skills/`;
+      console.log('Fetching skills from direct URL:', directUrl);
+      
+      const directResponse = await fetch(directUrl, fetchOptions);
+      console.log('Direct skills response status:', directResponse.status);
+      
+      if (!directResponse.ok) {
+        const errorText = await directResponse.text();
+        console.error('Direct skills error response:', errorText);
+        throw new Error(`API error: ${directResponse.status} - ${errorText}`);
+      }
+      
+      const data = await directResponse.json();
+      console.log('Direct skills data received:', data);
+      
+      return data;
     }
     
     const data = await response.json();
@@ -93,16 +130,36 @@ export async function fetchSkills() {
 
 export async function fetchProjects() {
   try {
-    const url = getApiUrl('/projects/');
+    // Try using the Next.js API route first
+    const url = '/api/projects/';
     console.log('Fetching projects from:', url);
     
     const response = await fetch(url, fetchOptions);
     console.log('Projects response status:', response.status);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Projects error response:', errorText);
-      throw new Error(`API error: ${response.status} - ${errorText}`);
+      // If the Next.js API route fails, try direct backend URL
+      console.log('Next.js API route failed, trying direct backend URL');
+      const directUrl = `${BACKEND_URL}/api/projects/`;
+      console.log('Fetching projects from direct URL:', directUrl);
+      
+      const directResponse = await fetch(directUrl, fetchOptions);
+      console.log('Direct projects response status:', directResponse.status);
+      
+      if (!directResponse.ok) {
+        const errorText = await directResponse.text();
+        console.error('Direct projects error response:', errorText);
+        throw new Error(`API error: ${directResponse.status} - ${errorText}`);
+      }
+      
+      const data = await directResponse.json();
+      console.log('Direct projects data received:', data);
+      
+      // Fix project image URLs
+      return data.map((project: any) => ({
+        ...project,
+        image: fixImageUrl(project.image)
+      }));
     }
     
     const data = await response.json();
@@ -121,16 +178,32 @@ export async function fetchProjects() {
 
 export async function fetchExperiences() {
   try {
-    const url = getApiUrl('/experiences/');
+    // Try using the Next.js API route first
+    const url = '/api/experiences/';
     console.log('Fetching experiences from:', url);
     
     const response = await fetch(url, fetchOptions);
     console.log('Experiences response status:', response.status);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Experiences error response:', errorText);
-      throw new Error(`API error: ${response.status} - ${errorText}`);
+      // If the Next.js API route fails, try direct backend URL
+      console.log('Next.js API route failed, trying direct backend URL');
+      const directUrl = `${BACKEND_URL}/api/experiences/`;
+      console.log('Fetching experiences from direct URL:', directUrl);
+      
+      const directResponse = await fetch(directUrl, fetchOptions);
+      console.log('Direct experiences response status:', directResponse.status);
+      
+      if (!directResponse.ok) {
+        const errorText = await directResponse.text();
+        console.error('Direct experiences error response:', errorText);
+        throw new Error(`API error: ${directResponse.status} - ${errorText}`);
+      }
+      
+      const data = await directResponse.json();
+      console.log('Direct experiences data received:', data);
+      
+      return data;
     }
     
     const data = await response.json();
@@ -145,16 +218,32 @@ export async function fetchExperiences() {
 
 export async function fetchEducation() {
   try {
-    const url = getApiUrl('/education/');
+    // Try using the Next.js API route first
+    const url = '/api/education/';
     console.log('Fetching education from:', url);
     
     const response = await fetch(url, fetchOptions);
     console.log('Education response status:', response.status);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Education error response:', errorText);
-      throw new Error(`API error: ${response.status} - ${errorText}`);
+      // If the Next.js API route fails, try direct backend URL
+      console.log('Next.js API route failed, trying direct backend URL');
+      const directUrl = `${BACKEND_URL}/api/education/`;
+      console.log('Fetching education from direct URL:', directUrl);
+      
+      const directResponse = await fetch(directUrl, fetchOptions);
+      console.log('Direct education response status:', directResponse.status);
+      
+      if (!directResponse.ok) {
+        const errorText = await directResponse.text();
+        console.error('Direct education error response:', errorText);
+        throw new Error(`API error: ${directResponse.status} - ${errorText}`);
+      }
+      
+      const data = await directResponse.json();
+      console.log('Direct education data received:', data);
+      
+      return data;
     }
     
     const data = await response.json();
