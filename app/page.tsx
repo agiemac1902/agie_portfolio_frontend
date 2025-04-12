@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { usePageTransition } from "@/hooks/use-page-transition"
 import Hero from "@/components/hero"
 import About from "@/components/about"
@@ -55,7 +55,8 @@ interface Education {
   description: string
 }
 
-export default function Home() {
+// Create a separate component for the page content
+function HomeContent() {
   // Use the page transition hook
   usePageTransition()
 
@@ -114,7 +115,7 @@ export default function Home() {
   const [education, setEducation] = useState<Education[]>([])
 
   // Fetch data from API with proper error handling
- useEffect(() => {
+  useEffect(() => {
     async function fetchData() {
       try {
         console.log("Fetching data from API...")
@@ -175,124 +176,6 @@ export default function Home() {
 
     fetchData()
   }, [])
-  /* useEffect(() => {
-    async function fetchData() {
-      try {
-        console.log("Fetching data from API...")
-
-        // Fetch personal info
-        try {
-          const personalInfoResponse = await fetch("http://13.61.212.73/api/personal-info/")
-          console.log("Personal info response status:", personalInfoResponse.status)
-
-          if (personalInfoResponse.ok) {
-            const data = await personalInfoResponse.json()
-            console.log("Personal info data:", data)
-
-            if (data && data.length > 0) {
-              // Fix image URL if needed
-              const personalData = data[0]
-              if (personalData.image && !personalData.image.startsWith("http")) {
-                personalData.image = `http://13.61.212.73${personalData.image}`
-              }
-              setPersonalInfo(personalData)
-            }
-          } else {
-            console.error("Failed to fetch personal info:", personalInfoResponse.statusText)
-          }
-        } catch (error) {
-          console.error("Error fetching personal info:", error)
-        }
-
-        // Fetch skills
-        try {
-          const skillsResponse = await fetch("http://13.61.212.73/api/skills/") 
-          console.log("Skills response status:", skillsResponse.status)
-
-          if (skillsResponse.ok) {
-            const data = await skillsResponse.json()
-            console.log("Skills data:", data)
-
-            if (data && data.length > 0) {
-              setSkills(data)
-            }
-          } else {
-            console.error("Failed to fetch skills:", skillsResponse.statusText)
-          }
-        } catch (error) {
-          console.error("Error fetching skills:", error)
-        }
-
-        // Fetch projects
-        try {
-          const projectsResponse = await fetch("http://13.61.212.73/api/projects/")
-          console.log("Projects response status:", projectsResponse.status)
-
-          if (projectsResponse.ok) {
-            const data = await projectsResponse.json()
-            console.log("Projects data:", data)
-
-            if (data && data.length > 0) {
-              // Fix image URLs if needed
-              const projectsData = data.map((project: Project) => {
-                if (project.image && !project.image.startsWith("http")) {
-                  project.image = `http://13.61.212.73${project.image}`
-                }
-                return project
-              })
-              setProjects(projectsData)
-            }
-          } else {
-            console.error("Failed to fetch projects:", projectsResponse.statusText)
-          }
-        } catch (error) {
-          console.error("Error fetching projects:", error)
-        }
-
-        // Fetch experiences
-        try {
-          const experiencesResponse = await fetch("http://13.61.212.73/api/experiences/")
-          console.log("Experiences response status:", experiencesResponse.status)
-
-          if (experiencesResponse.ok) {
-            const data = await experiencesResponse.json()
-            console.log("Experiences data:", data)
-
-            if (data && data.length > 0) {
-              setExperiences(data)
-            }
-          } else {
-            console.error("Failed to fetch experiences:", experiencesResponse.statusText)
-          }
-        } catch (error) {
-          console.error("Error fetching experiences:", error)
-        }
-
-        // Fetch education
-        try {
-          const educationResponse = await fetch("http://13.61.212.73/api/education/")
-          console.log("Education response status:", educationResponse.status)
-
-          if (educationResponse.ok) {
-            const data = await educationResponse.json()
-            console.log("Education data:", data)
-
-            if (data && data.length > 0) {
-              setEducation(data)
-            }
-          } else {
-            console.error("Failed to fetch education:", educationResponse.statusText)
-          }
-        } catch (error) {
-          console.error("Error fetching education:", error)
-        }
-      } catch (error) {
-        console.error("Error in fetchData function:", error)
-      }
-    }
-
-    fetchData()
-  }, []) */
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -302,6 +185,15 @@ export default function Home() {
       <Projects projects={projects} />
       <Contact email="machiyagrippa@gmail.com" />
     </motion.div>
+  )
+}
+
+// Main page component with Suspense boundary
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   )
 }
 

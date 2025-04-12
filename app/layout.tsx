@@ -7,6 +7,7 @@ import BackToTop from "@/components/ui/back-to-top"
 import "./globals.css"
 
 export const metadata = {
+  metadataBase: new URL('https://www.agiemachiya.me'),
   title: "Agrippa Machiya | Web Developer & Software Engineer",
   description: "Professional web developer and mobile app developer specializing in creating responsive, user-friendly applications. Expert in front-end and back-end development.",
   keywords: "graphic designer, web developer, software engineer, mobile app developer, web designer, graphic designer, front-end developer, back-end developer, full-stack developer, UI/UX designer, React developer, Next.js developer, TypeScript developer",
