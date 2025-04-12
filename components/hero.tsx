@@ -16,7 +16,7 @@ interface PersonalInfo {
 
 export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
   // Default values for when personalInfo is not available
-  const name = personalInfo?.name
+  const name = personalInfo?.name || "Agrippa Machiya"
   const title = personalInfo?.title || "Web Developer"
   const bio = personalInfo?.bio || "Welcome to my portfolio website."
 

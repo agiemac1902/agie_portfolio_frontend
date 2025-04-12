@@ -1,0 +1,10 @@
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.agiemachiya.me/sitemap.xml
+
+# Disallow admin or private areas if you have any
+# Disallow: /admin/
+# Disallow: /private/ 

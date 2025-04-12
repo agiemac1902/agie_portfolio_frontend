@@ -86,7 +86,6 @@ export default function Header() {
         </div>
 
         <div className="md:hidden flex items-center space-x-4">
-          <div className="text-xs text-muted-foreground">{currentDateTime}</div>
           <ModeToggle />
           <Button variant="ghost" size="icon" onClick={toggleMenu}>
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
