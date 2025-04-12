@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 export async function GET() {
   try {
     // Get the backend URL from environment variables or use the EC2 IP as fallback
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://13.61.212.73"
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://13.61.212.73"
     
     console.log(`Testing connection to: ${backendUrl}/api/personal-info/`)
 
