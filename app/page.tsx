@@ -110,7 +110,7 @@ export default function Home() {
   const [education, setEducation] = useState<Education[]>([])
 
   // Fetch data from API with proper error handling
-  useEffect(() => {
+ useEffect(() => {
     async function fetchData() {
       try {
         console.log("Fetching data from API...")
@@ -170,8 +170,8 @@ export default function Home() {
     }
 
     fetchData()
-  }, []) 
-  /*useEffect(() => {
+  }, [])
+  /* useEffect(() => {
     async function fetchData() {
       try {
         console.log("Fetching data from API...")
