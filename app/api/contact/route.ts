@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     }
 
     // Get the backend URL from environment variables or use the EC2 IP as fallback
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://13.61.212.73"
+    const backendUrl = process.env.BACKEND_URL || "http://13.61.212.73"
     
     console.log(`Sending contact form data to: ${backendUrl}/api/contact/`)
 

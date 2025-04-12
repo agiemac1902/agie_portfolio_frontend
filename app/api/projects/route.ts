@@ -1,1 +1,0 @@
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://13.61.212.73" 
