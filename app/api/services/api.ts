@@ -28,19 +28,32 @@ const fixImageUrl = (imagePath: string) => {
   return `${BACKEND_URL}${imagePath}`;
 };
 
+// Common fetch options with CORS handling
+const fetchOptions = {
+  mode: 'cors' as RequestMode,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+};
+
 // Add console logs to debug API URLs
 export async function fetchPersonalInfo() {
   try {
     const url = getApiUrl('/personal-info/');
     console.log('Fetching personal info from:', url);
     
-    const response = await fetch(url);
+    const response = await fetch(url, fetchOptions);
+    console.log('Personal info response status:', response.status);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Personal info error response:', errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
     
     const data = await response.json();
+    console.log('Personal info data received:', data);
     
     if (data && data.length > 0) {
       // Fix image URL
@@ -59,13 +72,19 @@ export async function fetchSkills() {
     const url = getApiUrl('/skills/');
     console.log('Fetching skills from:', url);
     
-    const response = await fetch(url);
+    const response = await fetch(url, fetchOptions);
+    console.log('Skills response status:', response.status);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Skills error response:', errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    console.log('Skills data received:', data);
+    
+    return data;
   } catch (error) {
     console.error('Error fetching skills:', error);
     return [];
@@ -77,13 +96,17 @@ export async function fetchProjects() {
     const url = getApiUrl('/projects/');
     console.log('Fetching projects from:', url);
     
-    const response = await fetch(url);
+    const response = await fetch(url, fetchOptions);
+    console.log('Projects response status:', response.status);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Projects error response:', errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
     
     const data = await response.json();
+    console.log('Projects data received:', data);
     
     // Fix project image URLs
     return data.map((project: any) => ({
@@ -101,13 +124,19 @@ export async function fetchExperiences() {
     const url = getApiUrl('/experiences/');
     console.log('Fetching experiences from:', url);
     
-    const response = await fetch(url);
+    const response = await fetch(url, fetchOptions);
+    console.log('Experiences response status:', response.status);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Experiences error response:', errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    console.log('Experiences data received:', data);
+    
+    return data;
   } catch (error) {
     console.error('Error fetching experiences:', error);
     return [];
@@ -119,13 +148,19 @@ export async function fetchEducation() {
     const url = getApiUrl('/education/');
     console.log('Fetching education from:', url);
     
-    const response = await fetch(url);
+    const response = await fetch(url, fetchOptions);
+    console.log('Education response status:', response.status);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Education error response:', errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    console.log('Education data received:', data);
+    
+    return data;
   } catch (error) {
     console.error('Error fetching education:', error);
     return [];
@@ -138,18 +173,23 @@ export async function submitContactForm(formData: any) {
     console.log('Submitting contact form to:', url);
     
     const response = await fetch(url, {
+      ...fetchOptions,
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify(formData),
     });
     
+    console.log('Contact form response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Contact form error response:', errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    console.log('Contact form response data:', data);
+    
+    return data;
   } catch (error) {
     console.error('Error submitting contact form:', error);
     throw error;
