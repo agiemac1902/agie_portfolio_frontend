@@ -40,7 +40,7 @@ interface AboutProps {
 
 export default function About({ personalInfo, experiences, education }: AboutProps) {
   // Default values
-  const name = personalInfo?.name || "John Doe"
+  const name = personalInfo?.name
 
   const about = personalInfo?.about || "About Me"
 
