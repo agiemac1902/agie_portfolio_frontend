@@ -28,9 +28,13 @@ const fixImageUrl = (imagePath: string) => {
   return `${BACKEND_URL}${imagePath}`;
 };
 
+// Add console logs to debug API URLs
 export async function fetchPersonalInfo() {
   try {
-    const response = await fetch(getApiUrl('/personal-info/'));
+    const url = getApiUrl('/personal-info/');
+    console.log('Fetching personal info from:', url);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
@@ -52,7 +56,10 @@ export async function fetchPersonalInfo() {
 
 export async function fetchSkills() {
   try {
-    const response = await fetch(getApiUrl('/skills/'));
+    const url = getApiUrl('/skills/');
+    console.log('Fetching skills from:', url);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
@@ -67,7 +74,10 @@ export async function fetchSkills() {
 
 export async function fetchProjects() {
   try {
-    const response = await fetch(getApiUrl('/projects/'));
+    const url = getApiUrl('/projects/');
+    console.log('Fetching projects from:', url);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
@@ -88,7 +98,10 @@ export async function fetchProjects() {
 
 export async function fetchExperiences() {
   try {
-    const response = await fetch(getApiUrl('/experiences/'));
+    const url = getApiUrl('/experiences/');
+    console.log('Fetching experiences from:', url);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
@@ -103,7 +116,10 @@ export async function fetchExperiences() {
 
 export async function fetchEducation() {
   try {
-    const response = await fetch(getApiUrl('/education/'));
+    const url = getApiUrl('/education/');
+    console.log('Fetching education from:', url);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
@@ -118,7 +134,10 @@ export async function fetchEducation() {
 
 export async function submitContactForm(formData: any) {
   try {
-    const response = await fetch(getApiUrl('/contact/'), {
+    const url = getApiUrl('/contact/');
+    console.log('Submitting contact form to:', url);
+    
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
