@@ -1,5 +1,6 @@
 import type React from "react"
 import { AutoThemeProvider } from "@/components/auto-theme-provider"
+import { LoadingProvider } from "@/components/providers/loading-provider"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import BackToTop from "@/components/ui/back-to-top"
@@ -65,12 +66,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="font-courier">
         <AutoThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <BackToTop />
-          </div>
+          <LoadingProvider>
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <BackToTop />
+            </div>
+          </LoadingProvider>
         </AutoThemeProvider>
       </body>
     </html>

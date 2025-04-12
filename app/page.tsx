@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { usePageTransition } from "@/hooks/use-page-transition"
 import Hero from "@/components/hero"
 import About from "@/components/about"
 import Skills from "@/components/skills"
@@ -55,6 +56,9 @@ interface Education {
 }
 
 export default function Home() {
+  // Use the page transition hook
+  usePageTransition()
+
   // Default data
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     name: "John Doe",
