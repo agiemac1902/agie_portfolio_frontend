@@ -168,31 +168,40 @@ export async function fetchEducation() {
   }
 }
 
-export async function submitContactForm(formData: any) {
+export async function submitContactForm(formData: {
+  name: string
+  email: string
+  subject: string
+  message: string
+}) {
+  // Use the local API route instead of directly calling the backend
+  const url = "/api/contact"
+  console.log("Submitting contact form to:", url)
+
   try {
-    const url = getApiUrl('/contact/');
-    console.log('Submitting contact form to:', url);
-    
     const response = await fetch(url, {
-      ...fetchOptions,
-      method: 'POST',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formData),
-    });
-    
-    console.log('Contact form response status:', response.status);
-    
+    })
+
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Contact form error response:', errorText);
-      throw new Error(`API error: ${response.status} - ${errorText}`);
+      const errorData = await response.json().catch(() => ({}))
+      console.error("Contact form submission failed:", {
+        status: response.status,
+        statusText: response.statusText,
+        error: errorData,
+      })
+      throw new Error(`Failed to submit contact form: ${response.statusText}`)
     }
-    
-    const data = await response.json();
-    console.log('Contact form response data:', data);
-    
-    return data;
+
+    const data = await response.json()
+    console.log("Contact form submitted successfully:", data)
+    return data
   } catch (error) {
-    console.error('Error submitting contact form:', error);
-    throw error;
+    console.error("Error submitting contact form:", error)
+    throw error
   }
 }

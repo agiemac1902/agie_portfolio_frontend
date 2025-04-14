@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
 import { Mail, MapPin, Phone } from "lucide-react"
+import { submitContactForm } from "@/app/api/services/api"
 
 export default function Contact({ email }: { email: string }) {
   const [formData, setFormData] = useState({
@@ -31,44 +32,20 @@ export default function Contact({ email }: { email: string }) {
     setIsSubmitting(true)
 
     try {
-      // First try to submit to Django backend
-      let response
-      try {
-        response = await fetch("http://localhost:8000/api/contact/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
-      } catch (error) {
-        console.error("Error sending to Django backend:", error)
-        // If Django backend fails, try the Next.js API route
-        response = await fetch("/api/contact", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
-      }
+      const response = await submitContactForm(formData)
+      
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      })
 
-      if (response && response.ok) {
-        toast({
-          title: "Message sent!",
-          description: "Thank you for your message. I'll get back to you soon.",
-        })
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
-      } else {
-        throw new Error("Failed to send message")
-      }
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
     } catch (error) {
       console.error("Form submission error:", error)
       toast({
