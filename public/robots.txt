@@ -7,4 +7,16 @@ Sitemap: https://www.agiemachiya.me/sitemap.xml
 
 # Disallow admin or private areas if you have any
 # Disallow: /admin/
-# Disallow: /private/ 
+# Disallow: /private/
+
+# Allow Google to crawl and index all content
+User-agent: Googlebot
+Allow: /
+
+# Allow Google to crawl and index all content
+User-agent: Googlebot-Image
+Allow: /
+
+# Allow Bing to crawl and index all content
+User-agent: Bingbot
+Allow: / 

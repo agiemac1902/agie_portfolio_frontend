@@ -21,7 +21,7 @@ export default function Footer() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex items-center space-x-4"
         >
-          <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <Link href="https://github.com/agiemac1902" target="_blank" rel="noopener noreferrer">
             <Github className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
             <span className="sr-only">GitHub</span>
           </Link>

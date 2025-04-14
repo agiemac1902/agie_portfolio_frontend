@@ -9,6 +9,7 @@ import Projects from "@/components/projects"
 import Contact from "@/components/contact"
 import { motion } from "framer-motion"
 import { fetchPersonalInfo, fetchSkills, fetchProjects, fetchExperiences, fetchEducation } from "@/app/api/services/api"
+import { StructuredData } from "./structured-data"
 
 // Define interfaces for the data types
 interface PersonalInfo {
@@ -179,6 +180,13 @@ function HomeContent() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      {/* Add structured data for SEO */}
+      <StructuredData 
+        personalInfo={personalInfo} 
+        skills={skills} 
+        projects={projects} 
+      />
+      
       <Hero personalInfo={personalInfo} />
       <About personalInfo={personalInfo} experiences={experiences} education={education} />
       <Skills skills={skills} />
